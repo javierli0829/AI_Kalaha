@@ -1,4 +1,4 @@
-package kahala;
+package kalaha;
 
 public class Kalaha {
 	// Properties
@@ -9,8 +9,8 @@ public class Kalaha {
 	public static void main(String[] args) {
 		Player player1 = new Player(1);
 		Player player2 = new Player(-1);
-		while(player1.checkDone() == false && player2.checkDone() == false) {
-			turns *= -1;
-		}
+		// while(player1.checkDone() == false && player2.checkDone() == false) {
+		// 	turns *= -1;
+		// }
 	}
 }

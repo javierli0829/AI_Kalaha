@@ -1,12 +1,19 @@
+package kalaha;
+
 public class Player {
   // House 3 (index 3) is the highlighted house
-  private int[] houses = { 6, 6, 6, 0, 6, 6, 6 };
+  public int num;
+  public int[] houses = {6, 6, 6, 0, 6, 6, 6};
 
-  public getHouseSeed(int houseNo) {
+  public void Player(int numOfPlayer){
+    this.num = numOfPlayer;
+  }
+
+  public int getHouseSeed(int houseNo) {
     return this.houses[houseNo];
   }
 
-  public getScore() {
+  public int getScore() {
     return this.houses[3];
   }
 
@@ -14,11 +21,11 @@ public class Player {
     this.houses[3] += score;
   }
 
-  public isHouseEmpty(int houseNo) {
+  public boolean isHouseEmpty(int houseNo) {
     return this.houses[houseNo] == 0;
   }
 
-  public isHouseHasOneSeed (int houseNo) {
+  public boolean isHouseHasOneSeed (int houseNo) {
     return this.houses[houseNo] == 1;
   }
 
@@ -45,7 +52,7 @@ public class Player {
 
   }
 
-  public addSeedToSeveralHouse(int fromHouseNo, int toHouseNo) {
+  public void addSeedToSeveralHouse(int fromHouseNo, int toHouseNo) {
     for (int i = fromHouseNo; i <= toHouseNo; ++i) {
       this.houses[i] += 1;
     }
