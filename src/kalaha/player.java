@@ -25,9 +25,9 @@ public class Player {
     return this.houses[houseNo] == 0;
   }
 
-  public boolean isHouseHasOneSeed (int houseNo) {
-    return this.houses[houseNo] == 1;
-  }
+  // public boolean isHouseHasOneSeed (int houseNo) {
+  //   return this.houses[houseNo] == 1;
+  // }
 
   public int getNoOfSeedFromHouse(int houseNo) {
     return this.houses[houseNo];
@@ -37,9 +37,9 @@ public class Player {
     this.houses[houseNo] += 1;
   }
 
-  public void removeSeedFromHouse(int houseNo, int noOfSeed) {
-    this.houses[houseNo] -= noOfSeed;
-  }
+  // public void removeSeedFromHouse(int houseNo, int noOfSeed) {
+  //   this.houses[houseNo] -= noOfSeed;
+  // }
 
   public int removeAllSeedFromHouse(int houseNo) {
     int noOfSeed;
@@ -52,9 +52,19 @@ public class Player {
 
   }
 
-  public void addSeedToSeveralHouse(int fromHouseNo, int toHouseNo) {
-    for (int i = fromHouseNo; i <= toHouseNo; ++i) {
-      this.houses[i] += 1;
+  // public void addSeedToSeveralHouse(int fromHouseNo, int toHouseNo) {
+  //   for (int i = fromHouseNo; i <= toHouseNo; ++i) {
+  //     this.houses[i] += 1;
+  //   }
+  // }
+
+  public boolean checkDone(){
+    if(getScore() > 36) return true;
+    for(int count = 0; count <= 6; count++){
+      if(houses[count] != 0 && count != 3){
+        return false;
+      }
     }
+    return true;
   }
 }
