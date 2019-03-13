@@ -1,0 +1,17 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "CodeLens (Launch) - Kalaha",
+      "request": "launch",
+      "mainClass": "kalaha.Kalaha"
+    },
+    {
+      "type": "java",
+      "name": "CodeLens (Launch) - Kalaha",
+      "request": "launch",
+      "mainClass": "Kalaha",
+      "projectName": "kahala_22deb585"
+    }
+  ]
+}
