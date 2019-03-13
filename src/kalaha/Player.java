@@ -5,7 +5,7 @@ public class Player {
   public int num;
   public int[] houses = {6, 6, 6, 0, 6, 6, 6};
 
-  public void Player(int numOfPlayer){
+  public Player(int numOfPlayer){
     this.num = numOfPlayer;
   }
 
