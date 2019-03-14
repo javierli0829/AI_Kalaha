@@ -17,9 +17,9 @@ public class Player {
     return this.houses[3];
   }
 
-  public void addScore(int score) {
-    this.houses[3] += score;
-  }
+  // public void addScore(int score) {
+  //   this.houses[3] += score;
+  // }
 
   public boolean isHouseEmpty(int houseNo) {
     return this.houses[houseNo] == 0;
@@ -33,8 +33,8 @@ public class Player {
     return this.houses[houseNo];
   }
 
-  public void addOneSeedToHouse(int houseNo) {
-    this.houses[houseNo] += 1;
+  public void addSomeSeedToHouse(int houseNo, int seedNo) {
+    this.houses[houseNo] += seedNo;
   }
 
   // public void removeSeedFromHouse(int houseNo, int noOfSeed) {
