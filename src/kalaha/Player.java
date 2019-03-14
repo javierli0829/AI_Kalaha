@@ -29,9 +29,9 @@ public class Player {
     return this.houses[houseNo] == 1;
   }
 
-  public int getNoOfSeedFromHouse(int houseNo) {
-    return this.houses[houseNo];
-  }
+  // public int getNoOfSeedFromHouse(int houseNo) {
+  //   return this.houses[houseNo];
+  // }
 
   public void addSomeSeedToHouse(int houseNo, int seedNo) {
     this.houses[houseNo] += seedNo;
