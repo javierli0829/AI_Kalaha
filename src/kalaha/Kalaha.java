@@ -5,21 +5,18 @@ public class Kalaha {
 	public static int turns = 1; // 1 -> 1, -1 -> 2
 
 	// Methods
-	public void houseIsChosen(Player player, Player opponent, int houseNo){
-		if(player.getHouseSeed(houseNo) != 0){
-			int seedNoToPut = player.removeAllSeedFromHouse(houseNo);
-			for(int count = 0; count < seedNoToPut; count++){
+	public void houseIsChosen(Player player, int houseNo) {
+		if (player.getHouseSeed(houseNo) != 0) {
 
-			};
-		};
+		}
+		;
 	}
 
 	// Main
-	public static void main(String[] args) {
-		Player player1 = new Player(1);
-		Player player2 = new Player(-1);
-		// while(player1.checkDone() == false && player2.checkDone() == false) {
-		// 	turns *= -1;
-		// }
-	}
+	// public static void main(String[] args) {
+	// new GameBoard();
+	// // while(player1.checkDone() == false && player2.checkDone() == false) {
+	// // turns *= -1;
+	// // }
+	// }
 }

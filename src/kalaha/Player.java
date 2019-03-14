@@ -3,9 +3,9 @@ package kalaha;
 public class Player {
   // House 3 (index 3) is the highlighted house
   public int no;
-  public int[] houses = {6, 6, 6, 0, 6, 6, 6};
+  public int[] houses = { 6, 6, 6, 0, 6, 6, 6 };
 
-  public Player(int playerNo){
+  public Player(int playerNo) {
     this.no = playerNo;
   }
 
@@ -21,7 +21,7 @@ public class Player {
     return this.houses[houseNo] == 0;
   }
 
-  public boolean isHouseHasOneSeed (int houseNo) {
+  public boolean isHouseHasOneSeed(int houseNo) {
     return this.houses[houseNo] == 1;
   }
 
@@ -38,11 +38,12 @@ public class Player {
     this.houses[houseNo] = 0;
     return noOfSeed;
   }
-  
-  public boolean checkDone(){
-    if(getScore() > 36) return true;
-    for(int count = 0; count <= 6; count++){
-      if(isHouseEmpty(count) != true && count != 3){
+
+  public boolean checkDone() {
+    if (getScore() > 36)
+      return true;
+    for (int count = 0; count <= 6; count++) {
+      if (isHouseEmpty(count) != true && count != 3) {
         return false;
       }
     }
@@ -50,20 +51,20 @@ public class Player {
   }
 
   // public int getNoOfSeedFromHouse(int houseNo) {
-  //   return this.houses[houseNo];
+  // return this.houses[houseNo];
   // }
 
   // public void addSeedToSeveralHouse(int fromHouseNo, int toHouseNo) {
-  //   for (int i = fromHouseNo; i <= toHouseNo; ++i) {
-  //     this.houses[i] += 1;
-  //   }
+  // for (int i = fromHouseNo; i <= toHouseNo; ++i) {
+  // this.houses[i] += 1;
+  // }
   // }
 
   // public void addScore(int score) {
-  //   this.houses[3] += score;
+  // this.houses[3] += score;
   // }
 
   // public void removeSeedFromHouse(int houseNo, int noOfSeed) {
-  //   this.houses[houseNo] -= noOfSeed;
+  // this.houses[houseNo] -= noOfSeed;
   // }
 }
