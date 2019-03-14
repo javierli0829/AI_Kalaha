@@ -7,7 +7,10 @@ public class Kalaha {
 	// Methods
 	public void houseIsChosen(Player player, int houseNo){
 		if(player.getHouseSeed(houseNo) != 0){
-			
+			int seedNoToPut = player.removeAllSeedFromHouse(houseNo);
+			for(int count = 0; count < seedNoToPut; count++){
+				
+			};
 		};
 	}
 
