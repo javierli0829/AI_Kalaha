@@ -25,9 +25,9 @@ public class Player {
     return this.houses[houseNo] == 0;
   }
 
-  // public boolean isHouseHasOneSeed (int houseNo) {
-  //   return this.houses[houseNo] == 1;
-  // }
+  public boolean isHouseHasOneSeed (int houseNo) {
+    return this.houses[houseNo] == 1;
+  }
 
   public int getNoOfSeedFromHouse(int houseNo) {
     return this.houses[houseNo];
