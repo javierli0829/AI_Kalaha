@@ -3,10 +3,12 @@ package kalaha;
 public class Kalaha {
 	// Properties
 	public static int turns = 1; // 1 -> 1, -1 -> 2
-	
+
 	// Methods
 	public void houseIsChosen(Player player, int houseNo){
-		player.getHouseSeed(houseNo);
+		if(player.getHouseSeed(houseNo) != 0){
+			
+		};
 	}
 
 	// Main
