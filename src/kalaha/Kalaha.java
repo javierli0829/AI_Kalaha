@@ -5,11 +5,11 @@ public class Kalaha {
 	public static int turns = 1; // 1 -> 1, -1 -> 2
 
 	// Methods
-	public void houseIsChosen(Player player, int houseNo){
+	public void houseIsChosen(Player player, Player opponent, int houseNo){
 		if(player.getHouseSeed(houseNo) != 0){
 			int seedNoToPut = player.removeAllSeedFromHouse(houseNo);
 			for(int count = 0; count < seedNoToPut; count++){
-				
+
 			};
 		};
 	}
