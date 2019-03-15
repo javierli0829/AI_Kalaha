@@ -3,6 +3,8 @@ package kalaha;
 import kalaha.Player;
 import java.awt.*; // Using AWT layouts
 import java.awt.event.*; // Using AWT event classes and listener interfaces
+import java.util.Arrays;
+
 import javax.swing.*; // Using Swing components and containers
 
 // A Swing GUI application inherits from top-level container javax.swing.JFrame
@@ -146,6 +148,10 @@ public class GameBoard extends JFrame implements ActionListener {
             addDescription("Player" + (turn == 0 ? "1" : "2") + " steal opponent house " + noOfSeedSteal + "seed");
           }
         }
+        // Check if the game is over
+        if(checkDone()){
+          addDescription(player1.houses[3] > player2.houses[3] ? "1 win" : "2 win");
+        }
         turn = turn == 1 ? 0 : 1;
         addDescription(turn == 0 ? "Player1's turn" : "Player2's turn");
       }
@@ -174,6 +180,27 @@ public class GameBoard extends JFrame implements ActionListener {
   public void addDescription(String description) {
     textPane.setText(textPane.getText() + description);
   }
+
+  public boolean checkDone(){
+    if(player1.houses[3] >= 36) return true;
+    if(player2.houses[3] >= 36) return true;
+    int p1 = 0;
+    int p2 = 0;
+    System.out.println(Arrays.toString(player1.houses));
+    System.out.println(Arrays.toString(player2.houses));
+    for(int count = 0; count < 7; count++){
+      if(count % 7 == 3){
+        if(player1.houses[count] != 0){
+          p1++;
+        }
+        if(player2.houses[count] != 0){
+          p2++;
+        }
+      }
+    }
+    if(p1 == 0 || p2 == 0) {return true;}
+    else {return false;}
+  };
 
   public static void main(String[] args) {
     // // Run GUI codes in Event-Dispatching thread for thread-safety
