@@ -20,6 +20,7 @@ public class GameBoard extends JFrame implements ActionListener {
 
   public GameBoard() {
     // Retrieve the top-level content-pane from JFrame
+    turn = 0;
     Container cp = getContentPane();
 
     // Content-pane sets layout
@@ -28,7 +29,7 @@ public class GameBoard extends JFrame implements ActionListener {
 
     JPanel menuPanel = new JPanel();
     JPanel gamePanel = new JPanel();
-    JButton startBtn = new JButton("Start");
+    JButton startBtn = new JButton("Retart");
     menuPanel.setPreferredSize(new Dimension(200, 100));
     menuPanel.setMaximumSize(new Dimension(200, 100));
     // menuPanel.setAlignmentY(CENTER_ALIGNMENT);
@@ -39,7 +40,7 @@ public class GameBoard extends JFrame implements ActionListener {
     startBtn.setVerticalTextPosition(AbstractButton.BOTTOM);
     startBtn.setHorizontalTextPosition(AbstractButton.CENTER); // aka LEFT, for left-to-right locales
     startBtn.setMnemonic(KeyEvent.VK_D);
-    startBtn.setActionCommand("start");
+    startBtn.setActionCommand("restart");
     startBtn.addActionListener(this);
 
     houseBtns = new JButton[14];
@@ -74,7 +75,7 @@ public class GameBoard extends JFrame implements ActionListener {
     }
     updateHouseBtnText();
 
-    textPane.setText("Please Click Start to start the game");
+    textPane.setText("Game starts Player 1 First");
     textPane.setBounds(205, 100, 380, 90);
 
     menuPanel.add(startBtn);
@@ -93,9 +94,10 @@ public class GameBoard extends JFrame implements ActionListener {
   @Override
   public void actionPerformed(ActionEvent ae) {
     String action = ae.getActionCommand();
-    if (action == "start") {
+    if (action == "restart") {
       turn = 0;
-      addDescription("Game start Player 1 First");
+      addDescription("Game starts Player 1 First");
+      new GameBoard();
     } else {
       if ((turn == 0 && Integer.parseInt(action) < 7) || (turn == 1 && Integer.parseInt(action) >= 7)) {
         clearDescription();
@@ -161,7 +163,6 @@ public class GameBoard extends JFrame implements ActionListener {
         // houseBtns[i].setText(new String(new char[player2.getHouseSeed(i %
         // 7)]).replace("\0", "."));
         houseBtns[i].setText(Integer.toString(player2.getHouseSeed(i % 7)));
-
       }
     }
   }
@@ -171,7 +172,7 @@ public class GameBoard extends JFrame implements ActionListener {
   }
 
   public void addDescription(String description) {
-    textPane.setText(textPane.getText() + "\n" + description);
+    textPane.setText(textPane.getText() + description);
   }
 
   public static void main(String[] args) {
