@@ -63,6 +63,10 @@ public class GameBoard extends JFrame implements ActionListener {
             houseBtn.setForeground(oldcolor);
           }
         }
+
+        public void mouseClicked(MouseEvent me){
+          houseBtn.setForeground(Color.black);          
+        }
       });
       houseBtns[i] = houseBtn;
       houseBtn.setBounds(housePosX[i], housePosY[i], 90, 90);
