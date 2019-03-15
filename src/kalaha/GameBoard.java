@@ -71,7 +71,7 @@ public class GameBoard extends JFrame implements ActionListener {
     updateHouseBtnText();
 
     textPane.setText("Please Click Start to start the game");
-    textPane.setBounds(195, 100, 400, 90);
+    textPane.setBounds(205, 100, 380, 90);
 
     menuPanel.add(startBtn);
     gamePanel.add(textPane);
@@ -117,6 +117,8 @@ public class GameBoard extends JFrame implements ActionListener {
         if ((houseNo + i) % 7 != 3) {
           // skip if the opponent highlighted house
           opponent.addSomeSeedToHouse(correspondingHousePos, 1);
+        }else{
+          totalSeed++;
         }
       }
       if (i == totalSeed) {
