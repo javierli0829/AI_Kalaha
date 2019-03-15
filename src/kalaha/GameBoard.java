@@ -14,8 +14,8 @@ public class GameBoard extends JFrame implements ActionListener {
   public JTextPane textPane = new JTextPane();
   public final int[] housePosX = { 300, 200, 100, 100, 100, 200, 300, 400, 500, 600, 600, 600, 500, 400 };
   public final int[] housePosY = { 0, 0, 0, 100, 200, 200, 200, 200, 200, 200, 100, 0, 0, 0 };
-  public Player player1 = new Player(1);
-  public Player player2 = new Player(-1);
+  public Player player1 = new Player(0);
+  public Player player2 = new Player(1);
   // Constructor to setup the GUI components and event handlers
 
   public GameBoard() {
@@ -36,8 +36,8 @@ public class GameBoard extends JFrame implements ActionListener {
     gamePanel.setMaximumSize(new Dimension(900, 300));
     gamePanel.setLayout(null);
 
-    startBtn.setVerticalTextPosition(AbstractButton.TOP);
-    startBtn.setHorizontalTextPosition(AbstractButton.LEFT); // aka LEFT, for left-to-right locales
+    startBtn.setVerticalTextPosition(AbstractButton.BOTTOM);
+    startBtn.setHorizontalTextPosition(AbstractButton.CENTER); // aka LEFT, for left-to-right locales
     startBtn.setMnemonic(KeyEvent.VK_D);
     startBtn.setActionCommand("start");
     startBtn.addActionListener(this);
@@ -65,13 +65,13 @@ public class GameBoard extends JFrame implements ActionListener {
         }
       });
       houseBtns[i] = houseBtn;
-      houseBtn.setBounds(housePosX[i], housePosY[i], 100, 100);
+      houseBtn.setBounds(housePosX[i], housePosY[i], 90, 90);
       gamePanel.add(houseBtn);
     }
     updateHouseBtnText();
 
     textPane.setText("Please Click Start to start the game");
-    textPane.setBounds(200, 100, 400, 100);
+    textPane.setBounds(195, 100, 400, 90);
 
     menuPanel.add(startBtn);
     gamePanel.add(textPane);
