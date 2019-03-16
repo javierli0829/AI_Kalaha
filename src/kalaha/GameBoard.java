@@ -31,7 +31,7 @@ public class GameBoard extends JFrame implements ActionListener {
 
     JPanel menuPanel = new JPanel();
     JPanel gamePanel = new JPanel();
-    JButton startBtn = new JButton("Retart");
+    JButton startBtn = new JButton("Restart");
     menuPanel.setPreferredSize(new Dimension(200, 100));
     menuPanel.setMaximumSize(new Dimension(200, 100));
     // menuPanel.setAlignmentY(CENTER_ALIGNMENT);
@@ -101,7 +101,7 @@ public class GameBoard extends JFrame implements ActionListener {
       addDescription("Game starts Player 1 First");
       new GameBoard();
     } else {
-      if ((turn == 0 && Integer.parseInt(action) < 7) || (turn == 1 && Integer.parseInt(action) >= 7)) {
+      if ((turn == 0 && Integer.parseInt(action) < 7 && Integer.parseInt(action) != 3)|| (turn == 1 && Integer.parseInt(action) >= 7 && Integer.parseInt(action) != 10)) {
         clearDescription();
         execGame(Integer.parseInt(action));
         updateHouseBtnText();
