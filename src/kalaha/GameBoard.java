@@ -67,8 +67,8 @@ public class GameBoard extends JFrame implements ActionListener {
           }
         }
 
-        public void mouseClicked(MouseEvent me){
-          houseBtn.setForeground(Color.black);          
+        public void mouseClicked(MouseEvent me) {
+          houseBtn.setForeground(Color.black);
         }
       });
       houseBtns[i] = houseBtn;
@@ -114,27 +114,30 @@ public class GameBoard extends JFrame implements ActionListener {
     Player currentPlayer = turn == 0 ? player1 : player2;
     Player opponent = turn == 1 ? player1 : player2;
     int totalSeed = currentPlayer.getHouseSeed((houseNo % 7));
-
-    for (int i = 1; i < totalSeed + 1; ++i) {
+    int a = 0; // add 1 when highlighted house skipped
+    for (int i = 1; i < totalSeed + 1 + a; ++i) {
       int correspondingHousePos = (houseNo + i) % 7;
-      boolean isCurrentPlayerHouse = (turn == 0 ? ((houseNo + i) / 7) == 0 : ((houseNo + i) / 7) == 1);
+      // boolean isCurrentPlayerHouse = (turn == 0 ? ((houseNo + i) / 7) == 0 :
+      // ((houseNo + i) / 7) == 1);
+      boolean isCurrentPlayerHouse = (turn == 0 ? (houseNo + i) % 14 < 7 : (houseNo + i) % 14 >= 7);
+      System.out.print("CorrespondingHouse: " + correspondingHousePos);
+      System.out.println("isCurrentPlayerHouse: " + isCurrentPlayerHouse);
       if (isCurrentPlayerHouse) {
         // put seed to currentPlayerHouse
         currentPlayer.addSomeSeedToHouse(correspondingHousePos, 1);
       } else {
         if ((houseNo + i) % 7 != 3) {
-          // skip if the opponent highlighted house
           opponent.addSomeSeedToHouse(correspondingHousePos, 1);
-        }else{
-          totalSeed++;
+        } else {
+          ++a; // skip the opponent highlighted house
         }
       }
-      if (i == totalSeed) {
+      if (i == totalSeed + a) {
         // last seed
         if (isCurrentPlayerHouse) {
           if (correspondingHousePos == 3) {
             // last seed in currentPlayer highlighted house, reward a turn
-            currentPlayer.removeAllSeedFromHouse(houseNo % 7);
+            currentPlayer.removeSeedFromHouse(houseNo % 7, totalSeed);
             addDescription("Player" + (turn == 0 ? "1" : "2") + " get bonus turn");
             return;
           }
@@ -143,20 +146,21 @@ public class GameBoard extends JFrame implements ActionListener {
                                                                         // seed
             int opponentHouseNo = Math.abs(correspondingHousePos - 6);
             int noOfSeedSteal = opponent.getHouseSeed(opponentHouseNo); // 0-6,1-5,2-4,3-3
-            currentPlayer.addSomeSeedToHouse(correspondingHousePos, noOfSeedSteal);
+            currentPlayer.addSomeSeedToHouse(3, noOfSeedSteal + 1); // includes the last seed and the stolen seed
+            currentPlayer.removeSeedFromHouse(correspondingHousePos, 1); // last seed to highlighted house as well
             opponent.removeAllSeedFromHouse(opponentHouseNo);
             addDescription("Player" + (turn == 0 ? "1" : "2") + " steal opponent house " + noOfSeedSteal + "seed");
           }
         }
         // Check if the game is over
-        if(checkDone()){
+        if (checkDone()) {
           addDescription(player1.houses[3] > player2.houses[3] ? "1 win" : "2 win");
         }
         turn = turn == 1 ? 0 : 1;
         addDescription(turn == 0 ? "Player1's turn" : "Player2's turn");
       }
     }
-    currentPlayer.removeAllSeedFromHouse(houseNo % 7);
+    currentPlayer.removeSeedFromHouse(houseNo % 7, totalSeed);
   }
 
   public void updateHouseBtnText() {
@@ -178,28 +182,31 @@ public class GameBoard extends JFrame implements ActionListener {
   }
 
   public void addDescription(String description) {
-    textPane.setText(textPane.getText() + description);
+    textPane.setText(textPane.getText() + "\n" + description);
   }
 
-  public boolean checkDone(){
-    if(player1.houses[3] >= 36) return true;
-    if(player2.houses[3] >= 36) return true;
+  public boolean checkDone() {
+    if (player1.houses[3] >= 36)
+      return true;
+    if (player2.houses[3] >= 36)
+      return true;
     int p1 = 0;
     int p2 = 0;
     System.out.println(Arrays.toString(player1.houses));
     System.out.println(Arrays.toString(player2.houses));
-    for(int count = 0; count < 7; count++){
-      if(count % 7 == 3){
-        if(player1.houses[count] != 0){
-          p1++;
-        }
-        if(player2.houses[count] != 0){
-          p2++;
-        }
-      }
-    }
-    if(p1 == 0 || p2 == 0) {return true;}
-    else {return false;}
+    // for(int count = 0; count < 7; count++){
+    // if(count % 7 == 3){
+    // if(player1.houses[count] != 0){
+    // p1++;
+    // }
+    // if(player2.houses[count] != 0){
+    // p2++;
+    // }
+    // }
+    // }
+    // if(p1 == 0 || p2 == 0) {return true;}
+    // else {return false;}
+    return false;
   };
 
   public static void main(String[] args) {

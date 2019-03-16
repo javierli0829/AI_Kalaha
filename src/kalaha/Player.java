@@ -29,6 +29,13 @@ public class Player {
     this.houses[houseNo] += noOfSeed;
   }
 
+  public void removeSeedFromHouse(int houseNo, int noOfSeed) {
+    if (houseNo == 3) {
+      throw new Error("Seeds in Highlighted House is not allowed to be remove");
+    }
+    this.houses[houseNo] -= noOfSeed;
+  }
+
   public int removeAllSeedFromHouse(int houseNo) {
     int noOfSeed;
     if (houseNo == 3) {
