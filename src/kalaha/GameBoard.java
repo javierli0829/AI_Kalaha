@@ -101,10 +101,13 @@ public class GameBoard extends JFrame implements ActionListener {
       addDescription("Game starts Player 1 First");
       new GameBoard();
     } else {
-      if ((turn == 0 && Integer.parseInt(action) < 7 && Integer.parseInt(action) != 3)|| (turn == 1 && Integer.parseInt(action) >= 7 && Integer.parseInt(action) != 10)) {
+      if ((turn == 0 && Integer.parseInt(action) < 7 && Integer.parseInt(action) != 3)
+          || (turn == 1 && Integer.parseInt(action) >= 7 && Integer.parseInt(action) != 10)) {
         clearDescription();
         execGame(Integer.parseInt(action));
         updateHouseBtnText();
+        System.out.println(Arrays.toString(player1.houses));
+        System.out.println(Arrays.toString(player2.houses));
       }
     }
 
@@ -192,8 +195,7 @@ public class GameBoard extends JFrame implements ActionListener {
       return true;
     int p1 = 0;
     int p2 = 0;
-    System.out.println(Arrays.toString(player1.houses));
-    System.out.println(Arrays.toString(player2.houses));
+
     // for(int count = 0; count < 7; count++){
     // if(count % 7 == 3){
     // if(player1.houses[count] != 0){
