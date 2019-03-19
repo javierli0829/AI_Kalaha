@@ -6,14 +6,20 @@
 
 #### For Compilation
 ```
-cd src/kalaha/
-javac -d ../../bin/ *.java
+cd src/
+javac -d ../bin ./kalaha/*.java ./AI/*.java
 ```
 
-#### Run The Game:
+#### Run The Game(GUI):
 ```
 cd bin/
 java main
+```
+
+#### Run The AI:
+```
+cd bin/
+java AI
 ```
 
 #### Work Distribution:
