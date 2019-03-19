@@ -159,7 +159,7 @@ public class GameBoard extends JFrame implements ActionListener {
         // Check if the game is over
         if (checkDone()) {
           addDescription(player1.houses[3] > player2.houses[3] ? "1 win" : "2 win");
-          win = player1.houses[3] > player2.houses[3] ? 0 : 1;
+          win = player1.houses[3] > player2.houses[3] ? "0" : "1";
         } else {
           turn = turn == 1 ? 0 : 1;
           addDescription(turn == 0 ? "Player1's turn" : "Player2's turn");
@@ -236,7 +236,10 @@ public class GameBoard extends JFrame implements ActionListener {
 
   public static void main(String[] args) {
     // // Run GUI codes in Event-Dispatching thread for thread-safety
-    new GameBoard(); // Let the constructor do the job
+    GameBoard g = new GameBoard(); // Let the constructor do the job
+    // g.actionPerformed(new ActionEvent(this, ActionEvent.TEXT_EVENT_MASK, '1') {
+
+    // });
   }
 
 }
