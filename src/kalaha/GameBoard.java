@@ -111,7 +111,6 @@ public class GameBoard extends JFrame implements ActionListener {
         System.out.println(Arrays.toString(player2.houses));
       }
     }
-
   }
 
   public void execGame(int houseNo) {
@@ -236,9 +235,6 @@ public class GameBoard extends JFrame implements ActionListener {
 
   public static void main(String[] args) {
     // // Run GUI codes in Event-Dispatching thread for thread-safety
-    GameBoard g = new GameBoard(); // Let the constructor do the job
-    // g.actionPerformed(new ActionEvent(this, ActionEvent.TEXT_EVENT_MASK, '1') {
-
     // });
   }
 
