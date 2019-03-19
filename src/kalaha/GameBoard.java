@@ -18,6 +18,7 @@ public class GameBoard extends JFrame implements ActionListener {
   public final int[] housePosY = { 0, 0, 0, 100, 200, 200, 200, 200, 200, 200, 100, 0, 0, 0 };
   public Player player1 = new Player(0);
   public Player player2 = new Player(1);
+  public String win = null;
   // Constructor to setup the GUI components and event handlers
 
   public GameBoard() {
@@ -158,9 +159,11 @@ public class GameBoard extends JFrame implements ActionListener {
         // Check if the game is over
         if (checkDone()) {
           addDescription(player1.houses[3] > player2.houses[3] ? "1 win" : "2 win");
+          win = player1.houses[3] > player2.houses[3] ? 0 : 1;
+        } else {
+          turn = turn == 1 ? 0 : 1;
+          addDescription(turn == 0 ? "Player1's turn" : "Player2's turn");
         }
-        turn = turn == 1 ? 0 : 1;
-        addDescription(turn == 0 ? "Player1's turn" : "Player2's turn");
       }
     }
     currentPlayer.removeSeedFromHouse(houseNo % 7, totalSeed);
@@ -189,25 +192,45 @@ public class GameBoard extends JFrame implements ActionListener {
   }
 
   public boolean checkDone() {
-    if (player1.houses[3] >= 36)
+    if (player1.houses[3] > 36)
       return true;
-    if (player2.houses[3] >= 36)
+    if (player2.houses[3] > 36)
       return true;
     int p1 = 0;
     int p2 = 0;
+    boolean p1HaveSeed = false;
+    boolean p2HaveSeed = false;
 
-    // for(int count = 0; count < 7; count++){
-    // if(count % 7 == 3){
-    // if(player1.houses[count] != 0){
-    // p1++;
-    // }
-    // if(player2.houses[count] != 0){
-    // p2++;
-    // }
-    // }
-    // }
-    // if(p1 == 0 || p2 == 0) {return true;}
-    // else {return false;}
+    for (int i = 0; i < 7; ++i) {
+      if (player1.getHouseSeed(i) > 0) {
+        p1HaveSeed = true;
+        break;
+      }
+    }
+
+    if (!p1HaveSeed) {
+      for (int i = 0; i < 7; ++i) {
+        player1.addSomeSeedToHouse(3, player1.getHouseSeed(i));
+        player1.removeAllSeedFromHouse(i);
+      }
+      return true;
+    }
+
+    for (int i = 0; i < 7; ++i) {
+      if (player2.getHouseSeed(i) > 0) {
+        p2HaveSeed = true;
+        break;
+      }
+    }
+
+    if (!p2HaveSeed) {
+      for (int i = 0; i < 7; ++i) {
+        player2.addSomeSeedToHouse(3, player2.getHouseSeed(i));
+        player2.removeAllSeedFromHouse(i);
+      }
+      return true;
+    }
+
     return false;
   };
 
