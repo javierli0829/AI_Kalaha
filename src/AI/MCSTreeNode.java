@@ -2,13 +2,14 @@ package AI;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.Math;
 
 public class MCSTreeNode<T>{
   public MCSTreeNode<T> parent = null;
   public int n;
   public int r;
   public int[] currentState; // the current situation of the board
-  public int ucb; // the ucb node itself
+  public double ucb; // the ucb node itself
   public List<MCSTreeNode<T>> children = new ArrayList<>(); // children
 
   public MCSTreeNode(int[] currentState){ // constructor
@@ -25,7 +26,7 @@ public class MCSTreeNode<T>{
     return child;
   }
 
-  public int getUCB(){
+  public double getUCB(){
     return this.ucb;
   }
 
@@ -35,5 +36,9 @@ public class MCSTreeNode<T>{
 
   public int getR(){
     return this.r;
+  }
+
+  public double calculateUCB(int n, int r){
+    return (r/n) + Math.sqrt((Math.log(this.parent.n) * 2) / n);
   }
 }
