@@ -13,6 +13,5 @@ public class BackPropagate{
 			updateScore(P);
 		}
 		return;
-		
 	}
 }
