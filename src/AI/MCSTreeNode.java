@@ -1,14 +1,22 @@
 package AI;
 
-public class MCSTreeNode{
-  public int[] currentState; // the current situation of the board
-  public int[] ucbs; // the ucb of each available choice
+import java.util.ArrayList;
+import java.util.List;
+
+public class MCSTreeNode<T>{
+  public MCSTreeNode<T> parent = null;
   public int n;
   public int r;
-  public MCSTreeNode[] children; // children
+  public int[] currentState; // the current situation of the board
+  public int ucb; // the ucb node itself
+  public List<MCSTreeNode<T>> children = new ArrayList<>(); // children
 
-  public MCSTreeNode(){ // constructor
-
+  public MCSTreeNode(MCSTreeNode<T> parent, int[] currentState){ // constructor
+    this.parent = parent;
+    this.n = 0;
+    this.r = 0;
+    this.currentState = currentState;
+    this.ucb = 0;
   }
 
   public void addChild(){
