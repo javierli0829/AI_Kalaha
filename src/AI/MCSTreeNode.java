@@ -11,15 +11,29 @@ public class MCSTreeNode<T>{
   public int ucb; // the ucb node itself
   public List<MCSTreeNode<T>> children = new ArrayList<>(); // children
 
-  public MCSTreeNode(MCSTreeNode<T> parent, int[] currentState){ // constructor
-    this.parent = parent;
+  public MCSTreeNode(int[] currentState){ // constructor
     this.n = 0;
     this.r = 0;
     this.currentState = currentState;
     this.ucb = 0;
   }
 
-  public void addChild(){
-    // expand the chosen node and add children
+  public MCSTreeNode<T> addChild(MCSTreeNode<T> child){
+    // expand the node and add children
+    child.parent = this;
+    this.children.add(child);
+    return child;
+  }
+
+  public int getUCB(){
+    return this.ucb;
+  }
+
+  public int getN(){
+    return this.n;
+  }
+
+  public int getR(){
+    return this.r;
   }
 }
