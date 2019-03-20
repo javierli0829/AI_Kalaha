@@ -3,7 +3,7 @@ package AI;
 import java.lang.Math;
 import AI.StimulationGame;
 
-public class randomPlayTest {
+public class RandomPlayTest {
 
   public static void randomPlay(StimulationGame g) {
     int randomHouseNo = g.turn == 0 ? (int) (Math.random() * 7 + 0) : (int) (Math.random() * 7 + 7);

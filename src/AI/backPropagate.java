@@ -3,7 +3,7 @@ import javax.swing.tree.TreeNode;
 
 //import AI.selectionection
 
-public class backPropagate{
+public class BackPropagate{
 	public static void updateScore(TreeNode N) {
 //		int s = UCB();
 		int s = 10;
