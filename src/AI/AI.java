@@ -1,5 +1,5 @@
+package AI;
 import java.lang.Math;
-import AI.*;
 
 public class AI {
   public static void main(String[] args) {
