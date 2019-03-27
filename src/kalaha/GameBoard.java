@@ -7,6 +7,8 @@ import java.util.Arrays;
 
 import javax.swing.*; // Using Swing components and containers
 
+import ai.AI;
+
 // A Swing GUI application inherits from top-level container javax.swing.JFrame
 public class GameBoard extends JFrame implements ActionListener {
 
@@ -102,13 +104,27 @@ public class GameBoard extends JFrame implements ActionListener {
       addDescription("Game starts Player 1 First");
       new GameBoard();
     } else {
-      if ((turn == 0 && Integer.parseInt(action) < 7 && Integer.parseInt(action) != 3)
-          || (turn == 1 && Integer.parseInt(action) >= 7 && Integer.parseInt(action) != 10)) {
+      if ((turn == 0 && Integer.parseInt(action) < 7 && Integer.parseInt(action) != 3)) {
         clearDescription();
         execGame(Integer.parseInt(action));
         updateHouseBtnText();
-        System.out.println(Arrays.toString(player1.houses));
-        System.out.println(Arrays.toString(player2.houses));
+        // System.out.println(Arrays.toString(player1.houses));
+        // System.out.println(Arrays.toString(player2.houses));
+
+        // AI part
+        clearDescription();
+        int[] currentSituation = new int[14];
+        for (int i = 0; i < 7; ++i) {
+          currentSituation[i] = player1.getHouseSeed(i);
+        }
+        for (int i = 7; i < 14; ++i) {
+          currentSituation[i] = player2.getHouseSeed(i % 7);
+        }
+
+        AI ai = new AI(currentSituation);
+        execGame(ai.runAI());
+        updateHouseBtnText();
+
       }
     }
   }
