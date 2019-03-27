@@ -1,4 +1,4 @@
-package AI;
+package ai;
 import javax.swing.tree.TreeNode;
 
 //import AI.selectionection

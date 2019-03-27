@@ -1,4 +1,4 @@
-package AI;
+package ai;
 
 import kalaha.Player;
 import java.awt.*; // Using AWT layouts

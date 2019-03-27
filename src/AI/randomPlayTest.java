@@ -1,4 +1,4 @@
-package AI;
+package ai;
 
 import java.lang.Math;
 import AI.StimulationGame;
