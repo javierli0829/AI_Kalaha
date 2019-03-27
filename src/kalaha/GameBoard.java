@@ -120,9 +120,12 @@ public class GameBoard extends JFrame implements ActionListener {
         for (int i = 7; i < 14; ++i) {
           currentSituation[i] = player2.getHouseSeed(i % 7);
         }
-
+        System.out.println("1");
         AI ai = new AI(currentSituation);
+        System.out.println("2");
         execGame(ai.runAI());
+        System.out.println("3");
+
         updateHouseBtnText();
 
       }
@@ -211,8 +214,7 @@ public class GameBoard extends JFrame implements ActionListener {
       return true;
     if (player2.houses[3] > 36)
       return true;
-    int p1 = 0;
-    int p2 = 0;
+
     boolean p1HaveSeed = false;
     boolean p2HaveSeed = false;
 
@@ -225,8 +227,8 @@ public class GameBoard extends JFrame implements ActionListener {
 
     if (!p1HaveSeed) {
       for (int i = 0; i < 7; ++i) {
-        player1.addSomeSeedToHouse(3, player1.getHouseSeed(i));
-        player1.removeAllSeedFromHouse(i);
+        player2.addSomeSeedToHouse(3, player2.getHouseSeed(i));
+        player2.removeAllSeedFromHouse(i);
       }
       return true;
     }
@@ -240,8 +242,8 @@ public class GameBoard extends JFrame implements ActionListener {
 
     if (!p2HaveSeed) {
       for (int i = 0; i < 7; ++i) {
-        player2.addSomeSeedToHouse(3, player2.getHouseSeed(i));
-        player2.removeAllSeedFromHouse(i);
+        player1.addSomeSeedToHouse(3, player1.getHouseSeed(i));
+        player1.removeAllSeedFromHouse(i);
       }
       return true;
     }

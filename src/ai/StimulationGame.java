@@ -76,12 +76,13 @@ public class StimulationGame {
       return true;
     if (player2.houses[3] > 36)
       return true;
-    int p1 = 0;
-    int p2 = 0;
+
     boolean p1HaveSeed = false;
     boolean p2HaveSeed = false;
 
     for (int i = 0; i < 7; ++i) {
+      if (i == 3)
+        continue;
       if (player1.getHouseSeed(i) > 0) {
         p1HaveSeed = true;
         break;
@@ -90,13 +91,17 @@ public class StimulationGame {
 
     if (!p1HaveSeed) {
       for (int i = 0; i < 7; ++i) {
-        player1.addSomeSeedToHouse(3, player1.getHouseSeed(i));
-        player1.removeAllSeedFromHouse(i);
+        if (i == 3)
+          continue;
+        player2.addSomeSeedToHouse(3, player2.getHouseSeed(i));
+        player2.removeAllSeedFromHouse(i);
       }
       return true;
     }
 
     for (int i = 0; i < 7; ++i) {
+      if (i == 3)
+        continue;
       if (player2.getHouseSeed(i) > 0) {
         p2HaveSeed = true;
         break;
@@ -105,8 +110,10 @@ public class StimulationGame {
 
     if (!p2HaveSeed) {
       for (int i = 0; i < 7; ++i) {
-        player2.addSomeSeedToHouse(3, player2.getHouseSeed(i));
-        player2.removeAllSeedFromHouse(i);
+        if (i == 3)
+          continue;
+        player1.addSomeSeedToHouse(3, player1.getHouseSeed(i));
+        player1.removeAllSeedFromHouse(i);
       }
       return true;
     }

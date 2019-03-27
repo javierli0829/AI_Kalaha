@@ -18,12 +18,18 @@ public class AI {
   }
 
   public int runAI() {
+    System.out.println("4");
+
     expandNode(rootNode, true);
+    System.out.println("5");
+
     ++this.totalNumOfPlay;
 
     // loop until the limit reach
     while (totalNumOfPlay <= randomPlayLimit) {
       expandNode(maxUCBNode(leafNodes), false);
+      ++this.totalNumOfPlay;
+      System.out.println(this.totalNumOfPlay);
     }
 
     // loop until the limit reach
@@ -34,27 +40,43 @@ public class AI {
   public void expandNode(MCSTreeNode parentNode, boolean isDecision) {
     MCSTreeNode childNode;
     if (isDecision) {
-      leafNodes.remove(parentNode);
+      System.out.println("a");
+
       for (int count = 0; count < 7; count++) {
         if (count == 3)
           continue;
         // run one step and get currentState
         StimulationGame g = new StimulationGame(parentNode.currentState, 1);
         g.execGame(7 + count);
+        System.out.println("a1");
+
         childNode = new MCSTreeNode(count, g.getGameSituation());
         parentNode.addChild(count, childNode);
+        System.out.println("a2");
+
         // randomPlayTillEnd
         // update
         BackPropagate.updateScores(childNode, 1, RandomPlayTest.randomPlayTillEnd(g));
+        System.out.println("a3");
+
         leafNodes.add(childNode);
         decisionNode.add(childNode);
+        System.out.println("count: " + count);
+
       }
     } else {
+      System.out.println("b");
+
       leafNodes.remove(parentNode);
       for (int count = 0; count < 7; count++) {
         if (count == 3)
           continue;
         // run one step and get currentState
+        System.out.println("hey");
+        if (parentNode == null) {
+          System.out.println("parent null");
+
+        }
         StimulationGame g = new StimulationGame(parentNode.currentState, 1);
         g.execGame(7 + count);
         childNode = new MCSTreeNode(count, g.getGameSituation());
@@ -75,6 +97,9 @@ public class AI {
       if (node.getUCB() >= maxUCB) {
         maxUCBNode = node;
       }
+    }
+    if (maxUCBNode == null) {
+      System.out.println("node null");
     }
     return maxUCBNode;
   }
