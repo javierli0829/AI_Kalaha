@@ -26,6 +26,10 @@ public class MCSTreeNode<T>{
     return child;
   }
 
+  public MCSTreeNode<T> getParent(){
+    return this.parent;
+  }
+
   public double getUCB(){
     return this.ucb;
   }
