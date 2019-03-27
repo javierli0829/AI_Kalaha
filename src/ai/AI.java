@@ -14,8 +14,8 @@ public class AI {
     this.rootCurrentState = currentState;
   }
   
-  public void runAI(){
-
+  public int runAI(){
+    return 1;
   }
 
   public void expandNode(MCSTreeNode parentNode){
@@ -29,6 +29,7 @@ public class AI {
       parentNode.addChild(count, childNode);
       // randomPlayTillEnd
       // update
+      // update decision nodes
     }
   }
 }
