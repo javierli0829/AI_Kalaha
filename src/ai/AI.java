@@ -20,6 +20,7 @@ public class AI {
 
   public void expandNode(MCSTreeNode parentNode){
     MCSTreeNode childNode;
+    leafNodes.remove(parentNode);
     for(int count = 0; count < 7; count++){
       if(count == 3) continue;
       // run one step and get currentState
@@ -29,7 +30,10 @@ public class AI {
       parentNode.addChild(count, childNode);
       // randomPlayTillEnd
       // update
-      // update decision nodes
+      // childNode.updateRNUCB(1, RandomPlayTest.randomPlayTillEnd(g));
+      BackPropagate.updateScores(childNode, 1, RandomPlayTest.randomPlayTillEnd(g));
+      leafNodes.add(childNode);
     }
+    // update decision tree
   }
 }
