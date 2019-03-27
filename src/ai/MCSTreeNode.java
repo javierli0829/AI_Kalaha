@@ -46,17 +46,31 @@ public class MCSTreeNode {
   }
 
   public double calculateUCB(int n, int r) {
-    System.out.print("parent: " + this.parent.n);
+    // System.out.println("parent n= " + this.parent.n);
     return (r / n) + Math.sqrt((Math.log(this.parent.n) * 2) / n);
   }
 
-  public void updateRNUCB(int addN, int addR) {
-    this.n += addN;
+  public void updateR(int addR) {
     this.r += addR;
+    // this.ucb = calculateUCB(this.n, this.r);
+    // System.out.println("n:" + this.n);
+    // System.out.println("r:" + this.r);
+    // System.out.println("ucb:" + this.ucb);
+  }
+
+  public void updateN(int addN) {
+    this.n += addN;
+    // this.ucb = calculateUCB(this.n, this.r);
+    // System.out.println("n:" + this.n);
+    // System.out.println("r:" + this.r);
+    // System.out.println("ucb:" + this.ucb);
+  }
+
+  public void updateUCB() {
     this.ucb = calculateUCB(this.n, this.r);
-    System.out.println("n:" + this.n);
-    System.out.println("r:" + this.r);
-    System.out.println("ucb:" + this.ucb);
+    // System.out.println("n:" + this.n);
+    // System.out.println("r:" + this.r);
+    // System.out.println("ucb:" + this.ucb);
   }
 
 }

@@ -9,7 +9,7 @@ public class AI {
   public List<MCSTreeNode> decisionNode = new ArrayList<>();
   public MCSTreeNode rootNode;
   public int[] rootCurrentState;
-  public int randomPlayLimit = 100;
+  public int randomPlayLimit = 500;
   public int totalNumOfPlay = 0;
 
   public AI(int[] currentState) { // Constructor
@@ -29,16 +29,19 @@ public class AI {
     while (totalNumOfPlay <= randomPlayLimit) {
       expandNode(maxUCBNode(leafNodes), false);
       ++this.totalNumOfPlay;
-      System.out.println(this.totalNumOfPlay);
+      System.out.println("ttP: " + this.totalNumOfPlay);
     }
 
     // loop until the limit reach
-    return maxUCBNode(decisionNode).name;
+    int name = maxUCBNode(decisionNode).name;
+    totalNumOfPlay = 0;
+    return name;
 
   }
 
   public void expandNode(MCSTreeNode parentNode, boolean isDecision) {
     MCSTreeNode childNode;
+    List<MCSTreeNode> childNodes = new ArrayList<>();
     if (isDecision) {
       System.out.println("a");
 
@@ -46,17 +49,24 @@ public class AI {
         if (count == 3)
           continue;
         // run one step and get currentState
+        if (parentNode == null) {
+          System.out.println("parent null");
+
+        } else {
+          System.out.println("NOT NULL: " + parentNode.name);
+        }
         StimulationGame g = new StimulationGame(parentNode.currentState, 1);
         g.execGame(7 + count);
         System.out.println("a1");
 
         childNode = new MCSTreeNode(count, g.getGameSituation());
+        childNodes.add(childNode);
         parentNode.addChild(count, childNode);
+        BackPropagate.updateNR(childNode, 1, RandomPlayTest.randomPlayTillEnd(g));
         System.out.println("a2");
 
         // randomPlayTillEnd
         // update
-        BackPropagate.updateScores(childNode, 1, RandomPlayTest.randomPlayTillEnd(g));
         System.out.println("a3");
 
         leafNodes.add(childNode);
@@ -64,6 +74,10 @@ public class AI {
         System.out.println("count: " + count);
 
       }
+      for (MCSTreeNode node : childNodes) {
+        node.updateUCB();
+      }
+      BackPropagate.updateUCB(parentNode);
     } else {
       System.out.println("b");
 
@@ -76,16 +90,23 @@ public class AI {
         if (parentNode == null) {
           System.out.println("parent null");
 
+        } else {
+          System.out.println("NOT NULL: " + parentNode.name);
         }
         StimulationGame g = new StimulationGame(parentNode.currentState, 1);
         g.execGame(7 + count);
         childNode = new MCSTreeNode(count, g.getGameSituation());
+        childNodes.add(childNode);
         parentNode.addChild(count, childNode);
+        BackPropagate.updateNR(childNode, 1, RandomPlayTest.randomPlayTillEnd(g));
         // randomPlayTillEnd
         // update
-        BackPropagate.updateScores(childNode, 1, RandomPlayTest.randomPlayTillEnd(g));
         leafNodes.add(childNode);
       }
+      for (MCSTreeNode node : childNodes) {
+        node.updateUCB();
+      }
+      BackPropagate.updateUCB(parentNode);
     }
     // update decision tree
   }
@@ -97,9 +118,6 @@ public class AI {
       if (node.getUCB() >= maxUCB) {
         maxUCBNode = node;
       }
-    }
-    if (maxUCBNode == null) {
-      System.out.println("node null");
     }
     return maxUCBNode;
   }

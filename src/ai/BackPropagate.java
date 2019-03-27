@@ -6,13 +6,23 @@ import java.util.List;
 //import AI.selectionection
 
 public class BackPropagate {
-	public static void updateScores(MCSTreeNode node, int n, int r) {
+	public static void updateUCB(MCSTreeNode node) {
 		// System.out.print("update");
 		MCSTreeNode currentNode = node;
-		while (currentNode.getParent().name != 7) {
-			currentNode.updateRNUCB(n, r);
+		while (currentNode.getParent() != null) {
+			currentNode.updateUCB();
 			currentNode = currentNode.getParent();
-			System.out.println("Root: " + currentNode.name);
+		}
+
+	}
+
+	public static void updateNR(MCSTreeNode node, int addN, int addR) {
+		// System.out.print("update");
+		MCSTreeNode currentNode = node;
+		while (currentNode != null) {
+			currentNode.updateN(addN);
+			currentNode.updateR(addR);
+			currentNode = currentNode.getParent();
 		}
 
 	}

@@ -99,6 +99,7 @@ public class GameBoard extends JFrame implements ActionListener {
   @Override
   public void actionPerformed(ActionEvent ae) {
     String action = ae.getActionCommand();
+    System.out.print(1231);
     if (action == "restart") {
       turn = 0;
       addDescription("Game starts Player 1 First");
@@ -127,7 +128,7 @@ public class GameBoard extends JFrame implements ActionListener {
         System.out.println("3");
 
         updateHouseBtnText();
-
+        System.out.print("btn p");
       }
     }
   }
@@ -142,8 +143,6 @@ public class GameBoard extends JFrame implements ActionListener {
       // boolean isCurrentPlayerHouse = (turn == 0 ? ((houseNo + i) / 7) == 0 :
       // ((houseNo + i) / 7) == 1);
       boolean isCurrentPlayerHouse = (turn == 0 ? (houseNo + i) % 14 < 7 : (houseNo + i) % 14 >= 7);
-      System.out.print("CorrespondingHouse: " + correspondingHousePos);
-      System.out.println("isCurrentPlayerHouse: " + isCurrentPlayerHouse);
       if (isCurrentPlayerHouse) {
         // put seed to currentPlayerHouse
         currentPlayer.addSomeSeedToHouse(correspondingHousePos, 1);
