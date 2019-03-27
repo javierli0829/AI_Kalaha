@@ -118,6 +118,17 @@ public class StimulationGame {
     return player1.getHouseSeed(3);
   }
 
+  public int[] getGameSituation() {
+    int[] array = new int[14];
+    for (int i = 0; i < 7; ++i) {
+      array[i] = player1.getHouseSeed(i);
+    }
+    for (int i = 7; i < 14; ++i) {
+      array[i] = player2.getHouseSeed(i % 7);
+    }
+    return array;
+  }
+
   public void printHouseSeedArr() {
     // for validation check
     int[] result = new int[14];
