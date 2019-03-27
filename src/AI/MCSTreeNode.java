@@ -49,10 +49,10 @@ public class MCSTreeNode{
     return (r/n) + Math.sqrt((Math.log(this.parent.n) * 2) / n);
   }
 
-  public void updateRNUCB(MCSTreeNode child, int addN, int addR){
-    child.n += addN;
-    child.r += addR;
-    child.ucb = calculateUCB(child.n, child.r);
+  public void updateRNUCB(MCSTreeNode node, int addN, int addR){
+    node.n += addN;
+    node.r += addR;
+    node.ucb = calculateUCB(node.n, node.r);
   }
 
 }
