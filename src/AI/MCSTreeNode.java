@@ -4,29 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.Math;
 
-public class MCSTreeNode<T>{
-  public MCSTreeNode<T> parent = null;
+public class MCSTreeNode{
+  public MCSTreeNode parent = null;
+  public int name;
   public int n;
   public int r;
   public int[] currentState; // the current situation of the board
   public double ucb; // the ucb node itself
-  public List<MCSTreeNode<T>> children = new ArrayList<>(); // children
+  public List<MCSTreeNode> children = new ArrayList<>(); // children
 
-  public MCSTreeNode(int[] currentState){ // constructor
+  public MCSTreeNode(int name, int[] currentState){ // constructor
+    this.name = name;
     this.n = 0;
     this.r = 0;
     this.currentState = currentState;
     this.ucb = 0;
   }
 
-  public MCSTreeNode<T> addChild(MCSTreeNode<T> child){
+  public MCSTreeNode addChild(int name, MCSTreeNode child){
     // expand the node and add children
+    child.name = name;
     child.parent = this;
     this.children.add(child);
     return child;
   }
 
-  public MCSTreeNode<T> getParent(){
+  public MCSTreeNode getParent(){
     return this.parent;
   }
 

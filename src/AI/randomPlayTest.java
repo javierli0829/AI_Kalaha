@@ -1,7 +1,7 @@
 package ai;
 
 import java.lang.Math;
-import AI.StimulationGame;
+import ai.StimulationGame;
 
 public class RandomPlayTest {
 
