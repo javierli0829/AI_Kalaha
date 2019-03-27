@@ -15,6 +15,7 @@ public class AI {
   }
   
   public int runAI(){
+    
     return 1;
   }
 
@@ -30,7 +31,6 @@ public class AI {
       parentNode.addChild(count, childNode);
       // randomPlayTillEnd
       // update
-      // childNode.updateRNUCB(1, RandomPlayTest.randomPlayTillEnd(g));
       BackPropagate.updateScores(childNode, 1, RandomPlayTest.randomPlayTillEnd(g));
       leafNodes.add(childNode);
     }
