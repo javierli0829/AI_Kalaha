@@ -18,12 +18,16 @@ public class AI {
 
   }
 
-  public void expandNode(MCSTreeNode node){
+  public void expandNode(MCSTreeNode parentNode){
+    MCSTreeNode childNode;
     for(int count = 0; count < 7; count++){
       if(count == 3) continue;
       // run one step and get currentState
-      node.addChild(count, new MCSTreeNode(count, node.currentState));
-      // random
+      StimulationGame g = new StimulationGame(parentNode.currentState, 1);
+      g.execGame(7 + count);
+      childNode = new MCSTreeNode(count, g.getGameSituation());
+      parentNode.addChild(count, childNode);
+      // randomPlayTillEnd
       // update
     }
   }
