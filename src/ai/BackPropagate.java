@@ -11,5 +11,6 @@ public class BackPropagate {
 		while(currentNode.getParent() != null) {
 			currentNode.updateRNUCB(n, r);
 			currentNode = currentNode.getParent();
+		}
 	}
 }
