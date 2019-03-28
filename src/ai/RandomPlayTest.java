@@ -2,6 +2,7 @@ package ai;
 
 import java.lang.Math;
 import ai.StimulationGame;
+import java.util.Arrays;
 
 public class RandomPlayTest {
 
@@ -19,6 +20,8 @@ public class RandomPlayTest {
     while (!g.checkDone()) {
       randomPlay(g);
     }
+    // System.out.println("RPTE: " + Arrays.toString(g.getGameSituation()));
+
     return g.player2.getScore();
 
   }

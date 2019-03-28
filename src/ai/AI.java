@@ -9,7 +9,7 @@ public class AI {
   public List<MCSTreeNode> decisionNode = new ArrayList<>();
   public MCSTreeNode rootNode;
   public int[] rootCurrentState;
-  public int randomPlayLimit = 5000;
+  public int randomPlayLimit = 20000;
   public int totalNumOfPlay = 0;
 
   public AI(int[] currentState) { // Constructor
@@ -23,12 +23,15 @@ public class AI {
     ++this.totalNumOfPlay;
 
     // loop until the limit reach
-    while (totalNumOfPlay <= randomPlayLimit) {
+    while (totalNumOfPlay <= randomPlayLimit && leafNodes.size() != 0) {
       expandNode(maxUCBNode(leafNodes), false);
       ++this.totalNumOfPlay;
     }
+    System.out.println("leafSize: " + leafNodes.size());
 
     // loop until the limit reach
+    if (decisionNode.size() == 0)
+      return -1;
     int name = maxUCBNode(decisionNode).name;
     totalNumOfPlay = 0;
     // System.out.print("UCB: ");
@@ -37,7 +40,7 @@ public class AI {
     // System.out.print(node.getUCB() + ",");
     // }
     // System.out.println(" ");
-    System.out.print("decision: " + name);
+    System.out.println("decision: " + name);
     return name;
 
   }
@@ -47,16 +50,18 @@ public class AI {
     List<MCSTreeNode> childNodes = new ArrayList<>();
     if (isDecision) {
 
-      for (int count = 0; count < 7; count++) {
-        if (count == 3)
+      for (int count = 7; count < 14; count++) {
+        if (count == 10)
+          continue;
+        if (parentNode.currentState[count] == 0)
           continue;
         // run one step and get currentState
 
         StimulationGame g = new StimulationGame(parentNode.currentState, 1);
-        g.execGame(7 + count);
+        g.execGame(count);
 
-        childNode = new MCSTreeNode(count, g.getGameSituation());
-        parentNode.addChild(count, childNode);
+        childNode = new MCSTreeNode(count - 7, g.getGameSituation());
+        parentNode.addChild(count - 7, childNode);
         childNodes.add(childNode);
         BackPropagate.updateNR(childNode, 1, RandomPlayTest.randomPlayTillEnd(g));
 
@@ -75,16 +80,20 @@ public class AI {
     } else {
 
       leafNodes.remove(parentNode);
-      for (int count = 0; count < 7; count++) {
-        if (count == 3)
+      for (int count = 7; count < 14; count++) {
+        if (count == 10)
           continue;
+        if (parentNode != null) {
+          if (parentNode.currentState[count] == 0)
+            continue;
+        }
         // run one step and get currentState
 
         StimulationGame g = new StimulationGame(parentNode.currentState, 1);
-        g.execGame(7 + count);
-        childNode = new MCSTreeNode(count, g.getGameSituation());
+        g.execGame(count);
+        childNode = new MCSTreeNode(count - 7, g.getGameSituation());
         childNodes.add(childNode);
-        parentNode.addChild(count, childNode);
+        parentNode.addChild(count - 7, childNode);
         BackPropagate.updateNR(childNode, 1, RandomPlayTest.randomPlayTillEnd(g));
         // randomPlayTillEnd
         // update
@@ -107,7 +116,11 @@ public class AI {
         maxUCBNode = node;
       }
     }
-    // System.out.println("max: " + maxUCBNode.name);
+    if (maxUCBNode == null) {
+      System.out.println("max is Null");
+      System.out.println(nodes.size());
+
+    }
 
     return maxUCBNode;
   }

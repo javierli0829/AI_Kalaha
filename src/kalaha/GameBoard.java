@@ -99,37 +99,51 @@ public class GameBoard extends JFrame implements ActionListener {
   @Override
   public void actionPerformed(ActionEvent ae) {
     String action = ae.getActionCommand();
+    int name;
     if (action == "restart") {
       turn = 0;
       addDescription("Game starts Player 1 First");
       new GameBoard();
     } else {
-      if ((turn == 0 && Integer.parseInt(action) < 7 && Integer.parseInt(action) != 3)) {
+      if (win == null && (turn == 0 && Integer.parseInt(action) < 7 && Integer.parseInt(action) != 3)) {
         clearDescription();
+        System.out.println("Before 1:  " + Arrays.toString(getCurrentSituation()));
         execGame(Integer.parseInt(action));
+        System.out.println("After 1:   " + Arrays.toString(getCurrentSituation()));
         updateHouseBtnText();
         // System.out.println(Arrays.toString(player1.houses));
         // System.out.println(Arrays.toString(player2.houses));
 
         // AI part
-        clearDescription();
-        int[] currentSituation = new int[14];
         while (turn == 1) {
-          for (int i = 0; i < 7; ++i) {
-            currentSituation[i] = player1.getHouseSeed(i);
-          }
-          for (int i = 7; i < 14; ++i) {
-            currentSituation[i] = player2.getHouseSeed(i % 7);
-          }
-          AI ai = new AI(currentSituation);
-          execGame(ai.runAI() + 7);
+          System.out.println("Before AI: " + Arrays.toString(getCurrentSituation()));
+          AI ai = new AI(getCurrentSituation());
+          name = ai.runAI();
+          if (name == -1)
+            break;
+          execGame(name + 7);
+          System.out.println("After AI:  " + Arrays.toString(getCurrentSituation()));
         }
         updateHouseBtnText();
       }
     }
   }
 
+  public int[] getCurrentSituation() {
+    int[] currentSituation = new int[14];
+    for (int i = 0; i < 7; ++i) {
+      currentSituation[i] = player1.getHouseSeed(i);
+    }
+    for (int i = 7; i < 14; ++i) {
+      currentSituation[i] = player2.getHouseSeed(i % 7);
+    }
+    return currentSituation;
+  }
+
   public void execGame(int houseNo) { // 0-13
+    addDescription(turn == 0 ? "Player1's turn" : "Player2's turn");
+    addDescription("house: " + houseNo);
+
     Player currentPlayer = turn == 0 ? player1 : player2;
     Player opponent = turn == 1 ? player1 : player2;
     int totalSeed = currentPlayer.getHouseSeed((houseNo % 7));
@@ -142,13 +156,10 @@ public class GameBoard extends JFrame implements ActionListener {
       // boolean isCurrentPlayerHouse = (turn == 0 ? ((houseNo + i) / 7) == 0 :
       // ((houseNo + i) / 7) == 1);
       boolean isCurrentPlayerHouse = (turn == 0 ? (houseNo + i) % 14 < 7 : (houseNo + i) % 14 >= 7);
-      System.out.println(" turn " + turn);
       if (isCurrentPlayerHouse) {
         // put seed to currentPlayerHouse
-        System.out.println(" add seed to currentPlayer house" + correspondingHousePos);
         currentPlayer.addSomeSeedToHouse(correspondingHousePos, 1);
       } else {
-        System.out.println("add seed to opponentPlayer house" + correspondingHousePos);
         if ((houseNo + i) % 7 != 3) {
           opponent.addSomeSeedToHouse(correspondingHousePos, 1);
         } else {
@@ -171,15 +182,19 @@ public class GameBoard extends JFrame implements ActionListener {
             currentPlayer.addSomeSeedToHouse(3, noOfSeedSteal + 1); // includes the last seed and the stolen seed
             currentPlayer.removeSeedFromHouse(correspondingHousePos, 1); // last seed to highlighted house as well
             opponent.removeAllSeedFromHouse(opponentHouseNo);
-            addDescription("Player" + (turn == 0 ? "1" : "2") + " steal opponent house " + noOfSeedSteal + "seed");
+            addDescription("Player" + (turn == 0 ? "1" : "2") + " steal opponent house " + noOfSeedSteal + " seed");
           }
         }
         // Check if the game is over
         if (checkDone()) {
-          addDescription(player1.houses[3] > player2.houses[3] ? "1 win" : "2 win");
-          win = player1.houses[3] > player2.houses[3] ? "0" : "1";
-        } else {
-          addDescription(turn == 1 ? "Player1's turn" : "Player2's turn");
+          if (player1.houses[3] == player2.houses[3]) {
+            addDescription("Draw");
+            win = "-1";
+          } else {
+            addDescription(player1.houses[3] > player2.houses[3] ? "1 win" : "2 win");
+            win = player1.houses[3] > player2.houses[3] ? "0" : "1";
+          }
+          updateHouseBtnText();
         }
       }
     }
@@ -218,6 +233,9 @@ public class GameBoard extends JFrame implements ActionListener {
     boolean p2HaveSeed = false;
 
     for (int i = 0; i < 7; ++i) {
+      if (i == 3) {
+        continue;
+      }
       if (player1.getHouseSeed(i) > 0) {
         p1HaveSeed = true;
         break;
@@ -235,6 +253,9 @@ public class GameBoard extends JFrame implements ActionListener {
     }
 
     for (int i = 0; i < 7; ++i) {
+      if (i == 3) {
+        continue;
+      }
       if (player2.getHouseSeed(i) > 0) {
         p2HaveSeed = true;
         break;

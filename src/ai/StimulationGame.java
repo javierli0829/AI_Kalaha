@@ -23,11 +23,14 @@ public class StimulationGame {
     player2.houses = Arrays.copyOfRange(arrOfSeed, 7, 14);
   }
 
-  public void execGame(int houseNo) {
+  public void execGame(int houseNo) { // 0-13
     Player currentPlayer = turn == 0 ? player1 : player2;
     Player opponent = turn == 1 ? player1 : player2;
     int totalSeed = currentPlayer.getHouseSeed((houseNo % 7));
     int a = 0; // add 1 when highlighted house skipped
+
+    currentPlayer.removeSeedFromHouse(houseNo % 7, totalSeed);
+
     for (int i = 1; i < totalSeed + 1 + a; ++i) {
       int correspondingHousePos = (houseNo + i) % 7;
       boolean isCurrentPlayerHouse = (turn == 0 ? (houseNo + i) % 14 < 7 : (houseNo + i) % 14 >= 7);
@@ -47,7 +50,6 @@ public class StimulationGame {
         if (isCurrentPlayerHouse) {
           if (correspondingHousePos == 3) {
             // last seed in currentPlayer highlighted house, reward a turn
-            currentPlayer.removeSeedFromHouse(houseNo % 7, totalSeed);
             return;
           }
 
@@ -63,12 +65,10 @@ public class StimulationGame {
         // Check if the game is over
         if (checkDone()) {
           win = player1.houses[3] > player2.houses[3] ? "0" : "1";
-        } else {
-          turn = turn == 1 ? 0 : 1;
         }
       }
     }
-    currentPlayer.removeSeedFromHouse(houseNo % 7, totalSeed);
+    turn = (turn == 1 ? 0 : 1);
   }
 
   public boolean checkDone() {
@@ -90,6 +90,7 @@ public class StimulationGame {
     }
 
     if (!p1HaveSeed) {
+      System.out.println("P1: " + Arrays.toString(getGameSituation()));
       for (int i = 0; i < 7; ++i) {
         if (i == 3)
           continue;
@@ -109,6 +110,8 @@ public class StimulationGame {
     }
 
     if (!p2HaveSeed) {
+      System.out.println("P2: " + Arrays.toString(getGameSituation()));
+
       for (int i = 0; i < 7; ++i) {
         if (i == 3)
           continue;
