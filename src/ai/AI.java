@@ -31,6 +31,7 @@ public class AI {
 
     // loop until the limit reach
     if (decisionNode.size() == 0)
+
       return -1;
     int name = maxUCBNode(decisionNode).name;
     totalNumOfPlay = 0;
