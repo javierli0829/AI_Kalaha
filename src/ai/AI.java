@@ -9,7 +9,7 @@ public class AI {
   public List<MCSTreeNode> decisionNode = new ArrayList<>();
   public MCSTreeNode rootNode;
   public int[] rootCurrentState;
-  public int randomPlayLimit = 2000;
+  public int randomPlayLimit = 5000;
   public int totalNumOfPlay = 0;
 
   public AI(int[] currentState) { // Constructor
@@ -31,12 +31,13 @@ public class AI {
     // loop until the limit reach
     int name = maxUCBNode(decisionNode).name;
     totalNumOfPlay = 0;
-    System.out.print("UCB: ");
+    // System.out.print("UCB: ");
 
-    for (MCSTreeNode node : decisionNode) {
-      System.out.print(node.getUCB() + ",");
-    }
-    System.out.println(" ");
+    // for (MCSTreeNode node : decisionNode) {
+    // System.out.print(node.getUCB() + ",");
+    // }
+    // System.out.println(" ");
+    System.out.print("decision: " + name);
     return name;
 
   }

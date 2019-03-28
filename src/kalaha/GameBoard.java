@@ -114,36 +114,41 @@ public class GameBoard extends JFrame implements ActionListener {
         // AI part
         clearDescription();
         int[] currentSituation = new int[14];
-        for (int i = 0; i < 7; ++i) {
-          currentSituation[i] = player1.getHouseSeed(i);
-        }
-        for (int i = 7; i < 14; ++i) {
-          currentSituation[i] = player2.getHouseSeed(i % 7);
-        }
         while (turn == 1) {
+          for (int i = 0; i < 7; ++i) {
+            currentSituation[i] = player1.getHouseSeed(i);
+          }
+          for (int i = 7; i < 14; ++i) {
+            currentSituation[i] = player2.getHouseSeed(i % 7);
+          }
           AI ai = new AI(currentSituation);
-          execGame(ai.runAI());
+          execGame(ai.runAI() + 7);
         }
-
         updateHouseBtnText();
       }
     }
   }
 
-  public void execGame(int houseNo) {
+  public void execGame(int houseNo) { // 0-13
     Player currentPlayer = turn == 0 ? player1 : player2;
     Player opponent = turn == 1 ? player1 : player2;
     int totalSeed = currentPlayer.getHouseSeed((houseNo % 7));
     int a = 0; // add 1 when highlighted house skipped
+
+    currentPlayer.removeSeedFromHouse(houseNo % 7, totalSeed); // remove the decision house seed
+
     for (int i = 1; i < totalSeed + 1 + a; ++i) {
       int correspondingHousePos = (houseNo + i) % 7;
       // boolean isCurrentPlayerHouse = (turn == 0 ? ((houseNo + i) / 7) == 0 :
       // ((houseNo + i) / 7) == 1);
       boolean isCurrentPlayerHouse = (turn == 0 ? (houseNo + i) % 14 < 7 : (houseNo + i) % 14 >= 7);
+      System.out.println(" turn " + turn);
       if (isCurrentPlayerHouse) {
         // put seed to currentPlayerHouse
+        System.out.println(" add seed to currentPlayer house" + correspondingHousePos);
         currentPlayer.addSomeSeedToHouse(correspondingHousePos, 1);
       } else {
+        System.out.println("add seed to opponentPlayer house" + correspondingHousePos);
         if ((houseNo + i) % 7 != 3) {
           opponent.addSomeSeedToHouse(correspondingHousePos, 1);
         } else {
@@ -155,7 +160,6 @@ public class GameBoard extends JFrame implements ActionListener {
         if (isCurrentPlayerHouse) {
           if (correspondingHousePos == 3) {
             // last seed in currentPlayer highlighted house, reward a turn
-            currentPlayer.removeSeedFromHouse(houseNo % 7, totalSeed);
             addDescription("Player" + (turn == 0 ? "1" : "2") + " get bonus turn");
             return;
           }
@@ -180,7 +184,6 @@ public class GameBoard extends JFrame implements ActionListener {
       }
     }
     turn = (turn == 1 ? 0 : 1);
-    currentPlayer.removeSeedFromHouse(houseNo % 7, totalSeed);
   }
 
   public void updateHouseBtnText() {
