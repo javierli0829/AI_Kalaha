@@ -99,7 +99,6 @@ public class GameBoard extends JFrame implements ActionListener {
   @Override
   public void actionPerformed(ActionEvent ae) {
     String action = ae.getActionCommand();
-    System.out.print(1231);
     if (action == "restart") {
       turn = 0;
       addDescription("Game starts Player 1 First");
@@ -121,14 +120,12 @@ public class GameBoard extends JFrame implements ActionListener {
         for (int i = 7; i < 14; ++i) {
           currentSituation[i] = player2.getHouseSeed(i % 7);
         }
-        System.out.println("1");
-        AI ai = new AI(currentSituation);
-        System.out.println("2");
-        execGame(ai.runAI());
-        System.out.println("3");
+        while (turn == 1) {
+          AI ai = new AI(currentSituation);
+          execGame(ai.runAI());
+        }
 
         updateHouseBtnText();
-        System.out.print("btn p");
       }
     }
   }
@@ -178,11 +175,11 @@ public class GameBoard extends JFrame implements ActionListener {
           addDescription(player1.houses[3] > player2.houses[3] ? "1 win" : "2 win");
           win = player1.houses[3] > player2.houses[3] ? "0" : "1";
         } else {
-          turn = turn == 1 ? 0 : 1;
-          addDescription(turn == 0 ? "Player1's turn" : "Player2's turn");
+          addDescription(turn == 1 ? "Player1's turn" : "Player2's turn");
         }
       }
     }
+    turn = (turn == 1 ? 0 : 1);
     currentPlayer.removeSeedFromHouse(houseNo % 7, totalSeed);
   }
 
@@ -226,6 +223,8 @@ public class GameBoard extends JFrame implements ActionListener {
 
     if (!p1HaveSeed) {
       for (int i = 0; i < 7; ++i) {
+        if (i == 3)
+          continue;
         player2.addSomeSeedToHouse(3, player2.getHouseSeed(i));
         player2.removeAllSeedFromHouse(i);
       }
@@ -241,6 +240,8 @@ public class GameBoard extends JFrame implements ActionListener {
 
     if (!p2HaveSeed) {
       for (int i = 0; i < 7; ++i) {
+        if (i == 3)
+          continue;
         player1.addSomeSeedToHouse(3, player1.getHouseSeed(i));
         player1.removeAllSeedFromHouse(i);
       }
