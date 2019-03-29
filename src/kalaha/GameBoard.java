@@ -105,7 +105,7 @@ public class GameBoard extends JFrame implements ActionListener {
       addDescription("Game starts Player 1 First");
       new GameBoard();
     } else {
-      if (win == null && (turn == 0 && Integer.parseInt(action) < 7 && Integer.parseInt(action) != 3)) {
+      if (win == null && (getCurrentSituation()[Integer.parseInt(action)] != 0 && (turn == 0 && Integer.parseInt(action) < 7 && Integer.parseInt(action) != 3))) {
         clearDescription();
         System.out.println("Before 1:  " + Arrays.toString(getCurrentSituation()));
         execGame(Integer.parseInt(action));
