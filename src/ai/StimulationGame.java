@@ -90,7 +90,7 @@ public class StimulationGame {
     }
 
     if (!p1HaveSeed) {
-      System.out.println("P1: " + Arrays.toString(getGameSituation()));
+      // System.out.println("P1: " + Arrays.toString(getGameSituation()));
       for (int i = 0; i < 7; ++i) {
         if (i == 3)
           continue;
@@ -110,7 +110,7 @@ public class StimulationGame {
     }
 
     if (!p2HaveSeed) {
-      System.out.println("P2: " + Arrays.toString(getGameSituation()));
+      // System.out.println("P2: " + Arrays.toString(getGameSituation()));
 
       for (int i = 0; i < 7; ++i) {
         if (i == 3)

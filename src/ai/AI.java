@@ -41,7 +41,7 @@ public class AI {
     // System.out.print(node.getUCB() + ",");
     // }
     // System.out.println(" ");
-    System.out.println("decision: " + name);
+    // System.out.println("decision: " + name);
     return name;
 
   }

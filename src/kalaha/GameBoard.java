@@ -172,6 +172,18 @@ public class GameBoard extends JFrame implements ActionListener {
           if (correspondingHousePos == 3) {
             // last seed in currentPlayer highlighted house, reward a turn
             addDescription("Player" + (turn == 0 ? "1" : "2") + " get bonus turn");
+            // to check if it's end situation
+            if (checkDone()) {
+              if (player1.houses[3] == player2.houses[3]) {
+                addDescription("Draw");
+                win = "-1";
+              } else {
+                addDescription(player1.houses[3] > player2.houses[3] ? "1 win" : "2 win");
+                win = player1.houses[3] > player2.houses[3] ? "0" : "1";
+              }
+              updateHouseBtnText();
+            }
+              //
             return;
           }
 
