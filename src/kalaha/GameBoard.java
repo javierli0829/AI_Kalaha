@@ -21,6 +21,7 @@ public class GameBoard extends JFrame implements ActionListener {
   public Player player1 = new Player(0);
   public Player player2 = new Player(1);
   public String win = null;
+  public int noOfTurn = 0;
   // Constructor to setup the GUI components and event handlers
 
   public GameBoard() {
@@ -105,7 +106,8 @@ public class GameBoard extends JFrame implements ActionListener {
       addDescription("Game starts Player 1 First");
       new GameBoard();
     } else {
-      if (win == null && (getCurrentSituation()[Integer.parseInt(action)] != 0 && (turn == 0 && Integer.parseInt(action) < 7 && Integer.parseInt(action) != 3))) {
+      if (win == null && (getCurrentSituation()[Integer.parseInt(action)] != 0
+          && (turn == 0 && Integer.parseInt(action) < 7 && Integer.parseInt(action) != 3))) {
         clearDescription();
         System.out.println("Before 1:  " + Arrays.toString(getCurrentSituation()));
         execGame(Integer.parseInt(action));
@@ -113,9 +115,11 @@ public class GameBoard extends JFrame implements ActionListener {
         updateHouseBtnText();
         // System.out.println(Arrays.toString(player1.houses));
         // System.out.println(Arrays.toString(player2.houses));
+        ++noOfTurn;
 
         // AI part
         while (turn == 1) {
+          ++noOfTurn;
           System.out.println("Before AI: " + Arrays.toString(getCurrentSituation()));
           AI ai = new AI(getCurrentSituation());
           name = ai.runAI();
@@ -126,6 +130,7 @@ public class GameBoard extends JFrame implements ActionListener {
         }
         updateHouseBtnText();
       }
+      System.out.println(noOfTurn);
     }
   }
 
@@ -183,7 +188,7 @@ public class GameBoard extends JFrame implements ActionListener {
               }
               updateHouseBtnText();
             }
-              //
+            //
             return;
           }
 

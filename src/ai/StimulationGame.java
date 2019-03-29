@@ -90,13 +90,13 @@ public class StimulationGame {
     }
 
     if (!p1HaveSeed) {
-      // System.out.println("P1: " + Arrays.toString(getGameSituation()));
       for (int i = 0; i < 7; ++i) {
         if (i == 3)
           continue;
         player2.addSomeSeedToHouse(3, player2.getHouseSeed(i));
         player2.removeAllSeedFromHouse(i);
       }
+      // System.out.println("P1: " + Arrays.toString(getGameSituation()));
       return true;
     }
 
@@ -110,14 +110,13 @@ public class StimulationGame {
     }
 
     if (!p2HaveSeed) {
-      // System.out.println("P2: " + Arrays.toString(getGameSituation()));
-
       for (int i = 0; i < 7; ++i) {
         if (i == 3)
           continue;
         player1.addSomeSeedToHouse(3, player1.getHouseSeed(i));
         player1.removeAllSeedFromHouse(i);
       }
+      // System.out.println("P2: " + Arrays.toString(getGameSituation()));
       return true;
     }
     return false;

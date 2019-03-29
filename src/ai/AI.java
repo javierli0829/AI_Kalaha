@@ -9,7 +9,8 @@ public class AI {
   public List<MCSTreeNode> decisionNode = new ArrayList<>();
   public MCSTreeNode rootNode;
   public int[] rootCurrentState;
-  public int randomPlayLimit = 20000;
+  // public int randomPlayLimit = 20000;
+  public int randomPlayLimit = 40000;
   public int totalNumOfPlay = 0;
 
   public AI(int[] currentState) { // Constructor
